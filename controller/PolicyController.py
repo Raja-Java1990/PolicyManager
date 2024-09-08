@@ -1,6 +1,6 @@
 import pymysql
 from controller.app import app
-from util.sqlConfig import mysql
+from util.sqlConfig import db
 from flask import jsonify
 from flask import flash, request
 
@@ -10,18 +10,23 @@ from model.Policy import Policy
 @app.route('/getAllpolicy')
 def getpolicy():
     try:
-        conn = mysql.connect()
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT * FROM policy")
-        policyRows = cursor.fetchall()
-        respone = jsonify(policyRows)
-        respone.status_code = 200
-        return respone
+        #query all policies
+        allPolicy = Policy.query.all()
+        return jsonify([{"policyId": item.policyId,
+            "policyName": item.policyName,
+            "startDate": item.startDate,
+            "durationInYears": item.durationInYears,
+            "company": item.company,
+            "initialDeposite": item.initialDeposite,
+            "policyType": item.policyType,
+            "userTypes": item.userTypes,
+            "termsPerYear": item.termsPerYear,
+            "termAmount": item.termAmount,
+            "interest": item.interest} for item in allPolicy])
     except Exception as e:
         print(e)
     finally:
-        cursor.close()
-        conn.close()
+        pass
 @app.route('/addpolicy', methods =['POST'])
 def addPolicy():
     data = request.get_json()
@@ -30,11 +35,13 @@ def addPolicy():
 
     try:
         policy= Policy.from_dict(data)
-        print(policy)
-        policy.policyId = 100
+        db.session.add(policy)
+        db.session.commit()
         return jsonify({"Policy got created":policy.policyId }),201
     except Exception as e:
         return jsonify({"error":str(e)}),500
+    finally:
+        db.session.close()
 
 
 if __name__ == "__main__":
