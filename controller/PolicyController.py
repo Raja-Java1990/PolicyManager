@@ -2,8 +2,7 @@ import pymysql
 from controller.app import app
 from util.sqlConfig import db
 from flask import jsonify
-from flask import flash, request
-
+from flask import request
 from model.Policy import Policy
 
 
