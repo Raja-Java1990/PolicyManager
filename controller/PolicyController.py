@@ -4,7 +4,7 @@ from util.sqlConfig import db
 from flask import jsonify
 from flask import request
 from model.Policy import Policy
-
+from service.PolicyService import validateInputDate, validateInputpolicyType
 
 @app.route('/getAllpolicy')
 def getpolicy():
@@ -34,6 +34,8 @@ def addPolicy():
 
     try:
         policy= Policy.from_dict(data)
+        validateInputpolicyType(policy.policyType)
+        validateInputDate(policy.startDate)
         db.session.add(policy)
         db.session.commit()
         return jsonify({"Policy got created":policy.policyId }),201
