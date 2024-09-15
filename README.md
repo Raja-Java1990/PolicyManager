@@ -35,5 +35,6 @@ curl --location 'http://127.0.0.1:5000/addpolicy' \
     "userTypes": "Regular",
     "termsPerYear": 4,
     "termAmount": 500,
-    "interest": 3
+    "interest": 3,
+    "userId": "001"
 }'
