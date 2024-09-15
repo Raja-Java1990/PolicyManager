@@ -21,7 +21,8 @@ def getpolicy():
             "userTypes": item.userTypes,
             "termsPerYear": item.termsPerYear,
             "termAmount": item.termAmount,
-            "interest": item.interest} for item in allPolicy])
+            "interest": item.interest,
+            "userId": item.userId} for item in allPolicy])
     except Exception as e:
         print(e)
     finally:

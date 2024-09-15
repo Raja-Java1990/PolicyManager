@@ -14,12 +14,12 @@ class Policy(db.Model):
     termsPerYear = db.Column(db.Integer)
     termAmount = db.Column(db.Integer)
     interest = db.Column(db.Integer)
-
+    userId = db.Column(db.String(100), nullable= False)
     def __init__(self, policyId, policyName, startDate,
                  durationInYears, company,
                  initialDeposite, policyType,
                  userTypes, termsPerYear,
-                 termAmount, interest):
+                 termAmount, interest, userId):
         self.policyId = policyId
         self.policyName = policyName
         self.startDate = startDate
@@ -31,6 +31,7 @@ class Policy(db.Model):
         self.termsPerYear = termsPerYear
         self.termAmount = termAmount
         self.interest = interest
+        self.userId = userId
 
     @classmethod
     def from_dict(cls, data):
@@ -45,7 +46,8 @@ class Policy(db.Model):
             userTypes=data.get('userTypes'),
             termsPerYear=data.get('termsPerYear'),
             termAmount=data.get('termAmount'),
-            interest=data.get('interest')
+            interest=data.get('interest'),
+            userId = data.get('userId')
         )
 
     def to_dict(self):
@@ -61,4 +63,5 @@ class Policy(db.Model):
             "termsPerYear": self.termsPerYear,
             "termAmount": self.termAmount,
             "interest": self.interest,
+            "userId": self.userId
         }
