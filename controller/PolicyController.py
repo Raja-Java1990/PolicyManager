@@ -1,4 +1,3 @@
-import pymysql
 from controller.app import app
 from util.sqlConfig import db
 from flask import jsonify

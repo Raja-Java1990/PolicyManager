@@ -1,3 +1,4 @@
 flask_sqlalchemy
 flask
-python =='=3.12'
+python
+pymysql

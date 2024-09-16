@@ -2,17 +2,7 @@ from controller.app import app
 from flask_sqlalchemy import SQLAlchemy
 
 
-#from flaskext.mysql import MySQL
-
-
-# mysql = MySQL()
-# app.config['MYSQL_DATABASE_USER'] = 'root'
-# app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-# app.config['MYSQL_DATABASE_DB'] = 'policymanager'
-# app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-# mysql.init_app(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/policymanager'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:pass%40word1@localhost:3306/policy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
